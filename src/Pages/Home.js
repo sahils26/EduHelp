@@ -6,13 +6,14 @@ import Banner from "../assets/Images/banner.mp4"
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 function Home(){
     return(
         <div>
 
             {/* Section 1 */}
-
             <div className="  relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between">
 
                 <Link to={"/signup"}>
@@ -121,12 +122,14 @@ function Home(){
 
                     />
                 </div>
+
+                <ExploreMore/>
                 
             </div>
 
 
             {/* Section 2 */}
-            <div className=" bg-pure-greys-5 text-richblack-700">
+            <div className=" bg-pure-greys-5 text-richblack-700 pb-16">
                 <div className="homepage_bg  h-[310px] ">
                     <div className="w-11/12 mx-auto max-w-maxContent flex flex-col items-center justify-between gap-5">
                         <div className="h-[150px]"></div>
@@ -171,6 +174,13 @@ function Home(){
             </div>
 
             {/* Section 3 */}
+            <div className="w-11/12 mx-auto max-w-maxContent flex flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+                <InstructorSection/>
+
+                <h2>Review from other learners</h2>
+
+                
+            </div>
 
             {/* Footer */}
         </div>
