@@ -9,7 +9,7 @@ This starter pack includes a basic setup for using **Tailwind CSS with React**. 
     ```sh
     git clone https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git
     ```
-
+    
 1. Install the required packages.
     ```sh
     cd react-tailwind-css-starter-pack
