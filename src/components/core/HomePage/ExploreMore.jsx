@@ -27,7 +27,7 @@ function ExploreMore(){
 
 
     return(
-        <div>
+        <div className="mt-20">
             <div className="text-4xl font-semibold text-center">
                 Unlock the 
                 <HighlightText>Power of Code</HighlightText>
@@ -53,7 +53,7 @@ function ExploreMore(){
 
             </div>
 
-            <div className="absolute flex flex-row gap-10 justify-between w-full ">
+            <div className="absolute flex flex-row gap-10 justify-between w-11/12 m-auto items-center left-[5%] bottom-[-3%] ">
                 {
                     courses.map((element,index) =>{
                         return(
