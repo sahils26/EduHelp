@@ -3,10 +3,15 @@ const jwt = require("jsonwebtoken");
 
 exports.auth = async(req,res,next) => {
     try{
+        console.log("BEFORE TOKEN EXTRACTION");
+
         const token=req.body.token||
                     req.cookies.token||
-                    req.header("Authorisation").replace("Bearer ","");
-        
+                    req.header("Authorisation").replace("Bearer ", "");
+
+        console.log("AFTER TOKEN EXTRACTION");
+
+                    
         if(!token){
             res.status(401).json({
                 success:false,
@@ -18,6 +23,7 @@ exports.auth = async(req,res,next) => {
             const decode=jwt.verify(token,process.env.JWT_SECRET);
             console.log(decode);
             req.user=decode;
+            
         }catch(error){
             res.status(401).json({
                 success:false,
@@ -55,6 +61,7 @@ exports.isStudent=async(req,res,next)=>{
                 message:'this is  a protected route for students only'
             })
         }
+        next();
 
     }
     catch(error){
@@ -85,6 +92,7 @@ exports.isInstructor=async(req,res,next)=>{
                 message:'this is  a protected route for Instructor only'
             })
         }
+        next();
 
     }
     catch(error){
@@ -111,12 +119,15 @@ exports.isInstructor=async(req,res,next)=>{
 
 exports.isAdmin=async(req,res,next)=>{
     try{
+        console.log("Inside isAdmin middleware");
         if(req.user.accountType !=="Admin"){
             return res.status(401).json({
                 success:false,
                 message:'this is  a protected route for admins only'
             })
         }
+        console.log("Exiting isAdmin middleware");
+        next();
 
     }
     catch(error){

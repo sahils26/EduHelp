@@ -6,7 +6,6 @@ const profileRoutes=require("./routes/Profile");
 const paymentRoutes=require("./routes/Payments");
 const courseRoutes=require("./routes/Course");
 
-
 const {connectDB} =require("./config/database");
 const {cloudinaryConnect} =require("./config/cloudinary");
 const cookieParser=require("cookie-parser");
@@ -24,10 +23,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin:"hhtp://localhost:3000",
-        credentials:true,
+        origin: ['http://localhost:3000'],
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
     })
     )
+
 app.use(
     fileUpload({
         useTempFiles:true,
@@ -35,13 +36,31 @@ app.use(
     })
 )
 
+//new code for cors
+// app.use(cors());
+// app.options('*',cors());
+// var allowCrossDomain = function(req,res,next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   next();  
+// }
+// app.use(allowCrossDomain);
+
 cloudinaryConnect();
 
+app.use("/api/v1/auth",userRoutes);
+app.use("/api/v1/profile",profileRoutes);
+app.use("/api/v1/course",courseRoutes);
+app.use("/api/v1/payment",paymentRoutes);
 
-app.use("api/v1/auth",userRoutes);
-app.use("api/v1/profile",profileRoutes);
-app.use("api/v1/course",courseRoutes);
-app.use("api/v1/payment",paymentRoutes);
+//server issue
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
 
 
 app.get("/",(req,res)=>{
@@ -55,7 +74,6 @@ app.get("/",(req,res)=>{
 app.listen(PORT,()=>{
     console.log(`App is running at ${PORT}`);
 })
-
 
 
 

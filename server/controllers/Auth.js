@@ -24,7 +24,7 @@ exports.sendOTP=async(req,res)=>{
 
         var otp= otpGenerator.generate(6,{
             upperCaseAlphabets:false,
-            lowerCaseAlphabeta:false,
+            lowerCaseAlphabets:false,
             specialChars:false,
         });
         console.log(otp);
@@ -35,7 +35,7 @@ exports.sendOTP=async(req,res)=>{
         while(checkOTP){
             otp=otpGenerator.generate(6,{
                 upperCaseAlphabets:false,
-                lowerCaseAlphabeta:false,
+                lowerCaseAlphabets:false,
                 specialChars:false,
             });
 
@@ -43,7 +43,7 @@ exports.sendOTP=async(req,res)=>{
         }
 
         const otpBody=await OTP.create({email,otp});
-        console.log(otp.body);
+        console.log(otpBody);
 
 
         res.status(200).json({
@@ -69,173 +69,182 @@ exports.sendOTP=async(req,res)=>{
 
 
 
+exports.signup = async (req, res) => {
+	try {
+		// Destructure fields from the request body
+		const {
+			firstName,
+			lastName,
+			email,
+			password,
+			confirmPassword,
+			accountType,
+			contactNumber,
+			otp,
+		} = req.body;
 
+		// Check if All Details are there or not
+		if (
+			!firstName ||
+			!lastName ||
+			!email ||
+			!password ||
+			!confirmPassword ||
+			!otp
+		) {
+			return res.status(403).send({
+				success: false,
+				message: "All Fields are required",
+			});
+		}
 
-exports.signup= async(req,res)=>{
+		// Check if password and confirm password match
+		if (password !== confirmPassword) {
+			return res.status(400).json({
+				success: false,
+				message:
+					"Password and Confirm Password do not match. Please try again.",
+			});
+		}
 
-    try{
-        const{email,
-            firstName,
-            lastName,
-            password,
-            confirmPassword,
-            accountType,
-            contactNumber,
-            otp}=
-            req.body;
+		// Check if user already exists
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			return res.status(400).json({
+				success: false,
+				message: "User already exists. Please log in to continue.",
+			});
+		}
 
-
-            if(!firstName || !lastName || !email || !password || !confirmPassword || !otp){
-                return res.status(403).json({
-                    success:false,
-                    message:"All fields are  required",
-                })
-            }
-
-
-            if(password !== confirmPassword){
-                return res.status(400).json({
-                    success:false,
-                    message:'password and confirmPassword does not match, try again'
-                })
-            }
-
-
-            const userExist= await User.findOne({email});
-            if(userExist){
-                return res.status(400).json({
-                    success:false,
-                    message:'user already exist'
-                })
-            }
-
-
-            const recentOtp= await OTP.findOne({email}).sort({createdAt:-1}).limit(1);
-            console.log(recentOtp);
-
-            if(recentOtp.length==0){
-                return res.status(400).json({
-                    success:false,
-                    message:'OTP not found'
-                })
-            }else if(otp !== recentOtp){
-                return res.status(400).json({
-                    success:false,
-                    message:'Invalid OTP'
-                })
-            }
-
-
-            const hashedPass= await bcrypt.hash(password,10);
-
-
-            const profileData= await Profile.create({
-                gender:null,
-                dateOfBirth:null,
-                about:null,
-                contactNumber:null
-            })
-
-            const userData= await User.create({
-                firstName,
-                lastName,
-                email,
-                password:hashedPass,
-                accountType,
-                additionalDetails:profileData._id,
-                image:`http://api.dicebear.com/5.x/initials/svg?seed=${firstName}${lastName}`,
-            });
-
-
-            res.status(200).json({
-                success:true,
-                message:'User registered Successfully'
-            })
-
-    }
-    catch(error){
-        console.log(error);
-        res.status(500).json({
-            success:false,
-            message:'User cannot be registered, try again'
-        })
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-exports.login=async(req,res)=>{
-
-    try{
-        const {email,password}=req.body;
-
-        if( !email || !password){
-            return res.status(403).json({
-                success:false,
-                message:'All fields are  required, please try again',
-            });
-        }
-
-
-        const userExist = await User.findOne({email});
-        if(!email){
-            return res.status(401).json({
-                success:false,
-                message:'User not registered,please signUp first'
-            })
-        }
+		// Find the most recent OTP for the email
+		const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
         
+		console.log(response);
+		if (response.length === 0) {
+			// OTP not found for the email
+			return res.status(400).json({
+				success: false,
+				message: "The OTP is not valid , otp is not found for the email",
+			});
+		} else if (otp !== response[0].otp) {
+			// Invalid OTP
+			return res.status(400).json({
+				success: false,
+				message: "The OTP is not valid, otp does not match",
+			});
+		}
 
-        if(await bcrypt.compare(password,userExist.password)){
-            const payload={
-                email:userExist.email,
-                id:userExist._id,
-                accountType:userExist.accountType
-            }
-            const token=jwt.sign(payload,process.env.JWT_SECRET,{
-                expiresIn:"2h"
-            })  
-            userExist.token=token,
-            userExist.password=undefined;
+		// Hash the password
+		const hashedPassword = await bcrypt.hash(password, 10);
 
-            const options={
-                expires:new Date(Date.now()+3*24*60*60*1000),
-                httpOnly:true,
-            }
-            res.cookie("token",token,options).status(200).json({
-                success:true,
-                token,
-                userExist,
-                message:'user loggedIn Successfully'
-            })
-        }
+	
 
-        res.status(401).json({
-            success:false,
-            message:'password is incorrect'
-        });
+		// Create the Additional Profile For User
+		const profileData = await Profile.create({
+			gender: null,
+			dateOfBirth: null,
+			about: null,
+			contactNumber: null,
+		});
+		const user = await User.create({
+			firstName,
+			lastName,
+			email,
+			contactNumber,
+			password: hashedPassword,
+			accountType: accountType,
+			additionalDetails: profileData._id,
+			image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName}${""}${lastName}`,
+		});
 
-
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({
-            success:false,
-            message:"Login failure,please try again"
-        })
-    }
-
-    
+		return res.status(200).json({
+			success: true,
+			user,
+			message: "User registered successfully",
+		});
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({
+			success: false,
+			message: "User cannot be registered. Please try again.",
+		});
+	}
+};
 
 
-}
+
+
+
+
+
+
+
+// Login controller for authenticating users
+exports.login = async (req, res) => {
+	try {
+		// Get email and password from request body
+		const { email, password } = req.body;
+
+		// Check if email or password is missing
+		if (!email || !password) {
+			// Return 400 Bad Request status code with error message
+			return res.status(400).json({
+				success: false,
+				message: `Please Fill up All the Required Fields`,
+			});
+		}
+
+		// Find user with provided email
+		const user = await User.findOne({ email }).populate("additionalDetails");
+
+		// If user not found with provided email
+		if (!user) {
+			// Return 401 Unauthorized status code with error message
+			return res.status(401).json({
+				success: false,
+				message: `User is not Registered with Us Please SignUp to Continue`,
+			});
+		}
+
+		// Generate JWT token and Compare Password
+		if (await bcrypt.compare(password, user.password)) {
+			const token = jwt.sign(
+				{ email: user.email, id: user._id, accountType: user.accountType },
+				process.env.JWT_SECRET,
+				{
+					expiresIn: "24h",
+				}
+			);
+
+			// Save token to user document in database
+			user.token = token;
+			user.password = undefined;
+			// Set cookie for token and return success response
+			const options = {
+				expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+				httpOnly: true,
+			};
+			res.cookie("token", token, options).status(200).json({
+				success: true,
+				token,
+				user,
+				message: `User Login Success`,
+			});
+		} else {
+			return res.status(401).json({
+				success: false,
+				message: `Password is incorrect`,
+			});
+		}
+	} catch (error) {
+		console.error(error);
+		// Return 500 Internal Server Error status code with error message
+		return res.status(500).json({
+			success: false,
+			message: `Login Failure Please Try Again`,
+		});
+	}
+};
 
 
 

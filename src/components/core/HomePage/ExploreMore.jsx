@@ -49,11 +49,11 @@ function ExploreMore(){
                 }
             </div>
 
-            <div className="lg:h-[150px]">
+            <div className="lg:h-[200px]">
 
             </div>
 
-            <div className="absolute flex flex-row gap-10 justify-between w-11/12 m-auto items-center left-[5%] bottom-[-3%] ">
+            <div className="absolute flex flex-row  justify-between w-11/12 mx-auto items-center left-[5%] bottom-[-5%] ">
                 {
                     courses.map((element,index) =>{
                         return(
