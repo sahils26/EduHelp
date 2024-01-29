@@ -45,7 +45,7 @@ function RenderSteps() {
                 </>
             ))}
         </div>
-        
+        //Steps to be displayed while creating course
         {step === 1 && <CourseInformationForm/>}
         {step === 2 && <CourseBuilderForm/>}    
         {/* {step==3 } */}
