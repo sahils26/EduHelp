@@ -47,7 +47,7 @@ router.post("/deleteSection",auth,isInstructor,deleteSection);
 
 router.post("/createSubSection",auth,isInstructor,createSubSection);
 
-router.post("/updateSubSEction",auth,isInstructor,updateSubSection);
+router.post("/updateSubSection",auth,isInstructor,updateSubSection);
 
 router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);
 

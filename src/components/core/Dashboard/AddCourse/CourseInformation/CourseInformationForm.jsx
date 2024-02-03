@@ -152,7 +152,6 @@ export default function CourseInformationForm() {
     
     setLoading(true);
     const result = await addCourseDetails(formData,token)
-    console.log("After Calling addCourseDetails")
     if (result) {
       dispatch(setStep(2))
       dispatch(setCourse(result))

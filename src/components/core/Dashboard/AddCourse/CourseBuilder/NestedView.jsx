@@ -25,6 +25,8 @@ const NestedView = ({handleChangeEditSectionName}) => {
     const [confirmationModal, setConfirmationModal] = useState(null);
     useEffect(() => {
         console.log("Rendering it again");
+        console.log("section",course?.courseContent?.subSection)
+
     });
     const handleDeleteSection = async (sectionId) => {
         const result = await deleteSection({
@@ -43,8 +45,12 @@ const NestedView = ({handleChangeEditSectionName}) => {
     const handleDeleteSubSection = async (subSectionId, sectionId) => {
         const result = await deleteSubSection({subSectionId, sectionId, token});
         if(result) {
-            //TODO: extra kya kar skte h yaha pr 
-            dispatch(setCourse(result));
+            //TODO: extra kya kar skte h yaha pr
+            const updatedCourseContent = course.courseContent.map((section)=>
+            section._id===sectionId ? result : section);
+            const updatedCourse = {...course ,courseContent:updatedCourseContent};
+            
+            dispatch(setCourse(updatedCourse));
         }
         setConfirmationModal(null);
     }
@@ -53,7 +59,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
   return (
     <div>
           
-              <div className='rounded-lg bg-richblack-700 p-6 px-8'>
+        <div className='rounded-lg bg-richblack-700 p-6 px-8'>
         {course?.courseContent?.map((section) => (
             <details key={section._id} open>
 
@@ -143,7 +149,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
         modalData={addSubSection}
         setModalData={setAddSubSection}
         add={true}
-      />) 
+      />)   
       :viewSubSection ? 
       (<SubSectionModal 
         modalData={viewSubSection}

@@ -76,6 +76,11 @@ const SubSectionModal = ({
         const result  = await updateSubSection(formData, token);
         if(result) {
             //TODO: same check 
+            const updatedCourseContent = course.courseContent.map((section)=>
+            section._id===modalData.sectionId ? result : section);
+
+            const updatedCourse = {...course ,courseContent:updatedCourseContent};
+
             dispatch(setCourse(result));
         }
         setModalData(null);
@@ -104,14 +109,25 @@ const SubSectionModal = ({
         formData.append("sectionId", modalData);
         formData.append("title", data.lectureTitle);
         formData.append("description", data.lectureDesc);
-        formData.append("video", data.lectureVideo);
+        formData.append("videoFile", data.lectureVideo);
         setLoading(true);
         //API CALL
+        
         const result = await createSubSection(formData, token);
+        console.log("result",result);
 
         if(result) {
-            //TODO: check for updation
-            dispatch(setCourse(result))
+            // TODO
+            const updatedCourseContent = course.courseContent.map((section)=>
+            section._id === modalData ? result : section);
+
+            console.log("checkkk",course.courseContent);
+            
+            console.log("updated course content",updatedCourseContent);
+
+            const updatedCourse = {...course ,courseContent:updatedCourseContent};
+
+            dispatch(setCourse(updatedCourse))
         }
         setModalData(null);
         setLoading(false);
@@ -184,4 +200,3 @@ const SubSectionModal = ({
 }
 
 export default SubSectionModal
-//PAANI BREAK - 2min

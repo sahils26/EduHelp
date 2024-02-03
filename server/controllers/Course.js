@@ -7,6 +7,7 @@ const { uploadToCloudinary } = require("../utils/dataUploader");
 // Function to create a new course
 exports.createCourse = async (req, res) => {
 	try {
+		// console.log("hellooooooooooo")
 		// Get user ID from request object
 		const userId = req.user.id;
 
@@ -24,6 +25,7 @@ exports.createCourse = async (req, res) => {
 
 		 //Get thumbnail image from request files
 		const thumbnail = req.files.thumbnailImage;
+
 
 		// Check if any of the required fields are missing
 		if (
