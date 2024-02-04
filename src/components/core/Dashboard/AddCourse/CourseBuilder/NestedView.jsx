@@ -25,7 +25,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
     const [confirmationModal, setConfirmationModal] = useState(null);
     useEffect(() => {
         console.log("Rendering it again");
-        console.log("section",course?.courseContent?.subSection)
+        console.log("section",course?.courseContent[0])
 
     });
     const handleDeleteSection = async (sectionId) => {
@@ -79,7 +79,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                         onClick={() => {
                             setConfirmationModal({
                                 text1: "Delete this Section",
-                                text2: "All the lectures in this section wil be deleted",
+                                text2: "All the lectures in this section will be deleted",
                                 btn1Text: "Delete",
                                 btn2Text: "Cancel",
                                 btn1Handler: () => handleDeleteSection(section._id),
@@ -103,18 +103,19 @@ const NestedView = ({handleChangeEditSectionName}) => {
                             onClick={() => setViewSubSection(data)}
                             className='flex items-center justify-between gap-x-3 border-b-2'
                             >
-                                 <div className='flex items-center gap-x-3'>
+                                 <div className='flex items-center gap-x-3 italic font-edu-sa'>
                                     <RxDropdownMenu />
                                     <p>{data.title}</p>
                                 </div>
 
                                 <div
-                                className='flex items-center gap-x-3'>
+                                   onClick={(e) => e.stopPropagation()}
+                                className='flex items-center gap-x-3 '>
 
                                     <button
                                     onClick={() => setEditSubSection({...data, sectionId:section._id})}
                                     >
-                                         <MdEdit />
+                                         <MdEdit className="text-xl text-richblack-300"/>
                                     </button>
                                     <button
                                     onClick={() => setConfirmationModal({
@@ -123,7 +124,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
                                         btn1Text: "Delete",
                                         btn2Text: "Cancel",
                                         btn1Handler: () => handleDeleteSubSection(data._id, section._id),
-                                        btn2Handler: () => setConfirmationModal(null), })}
+                                        btn2Handler: () => setConfirmationModal(null) })}
                                     >
                                     <RiDeleteBin6Line />
                                         

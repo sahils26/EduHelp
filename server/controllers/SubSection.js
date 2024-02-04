@@ -67,25 +67,32 @@ exports.createSubSection = async(req,res)=>{
 exports.updateSubSection = async(req,res)=>{
     try{
         const{subSectionId, title, sectionId ,description=""}=req.body;
+        const subSection = await SubSection.findById(subSectionId);
 
-        const video=req.files.videoFile;
-
-        if(!subSectionId || !title || !video){
-            return res.status(400).json({
+        if(!subSection){
+            return res.status(404).json({
                 success:false,
-                message:'ALL fields are required'
+                message:'subSection not found'
             })
         }
-
-        const updatedVideoUpload= await uploadToCloudinary(video,process.env.FOLDER_NAME);
-
-        const updatedSubSection=await SubSection.findByIdAndUpdate({subSectionId},
-                                                                    {title:title},
-                                                                    {description:description},
-                                                                    {timeDuration:timeDuration},
-                                                                    {videoUrl:updatedVideoUpload.secure_url}
-                                                                    );
-            
+        if (title !== undefined) {
+            subSection.title = title
+          }
+      
+          if (description !== undefined) {
+            subSection.description = description
+          }
+          if (req.files && req.files.videoFile !== undefined) {
+            const video = req.files.videoFile
+            const uploadDetails = await uploadImageToCloudinary(
+              video,
+              process.env.FOLDER_NAME
+            )
+            subSection.videoUrl = uploadDetails.secure_url
+            subSection.timeDuration = `${uploadDetails.duration}`
+          }
+      
+          await subSection.save();          
             
             
         const updatedSection = await Section.findById(sectionId).populate("subSection");
@@ -94,7 +101,7 @@ exports.updateSubSection = async(req,res)=>{
         res.status(200).json({
             success:true,
             message:'Sub Section updated successfully',
-            updatedSection  
+            data:updatedSection  
         })
 
     }
