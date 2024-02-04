@@ -27,8 +27,8 @@ function PublishCourse(){
     }
 
     const handleCoursePublish= async() => {
-        if(course?.status === COURSE_STATUS.PUBLISHED && getValues("public") === true || 
-        course?.status === COURSE_STATUS.DRAFT && getValues("public")=== false){
+        if((course?.status === COURSE_STATUS.PUBLISHED && getValues("public") === true) || 
+        (course?.status === COURSE_STATUS.DRAFT && getValues("public")=== false)){
             goToCourses();
             return; 
         }
@@ -38,6 +38,7 @@ function PublishCourse(){
         formData.append("status",courseStatus);
 
         setLoading(true);
+
         const result = await editCourseDetails(formData,token);
 
         if(result){

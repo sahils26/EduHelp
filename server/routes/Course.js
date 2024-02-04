@@ -5,7 +5,10 @@ const router=express.Router();
 const {
     createCourse,
     getAllCourses,
-    getCourseDetails
+    getCourseDetails,
+    editCourse,
+    getInstructorCourses,
+    deleteCourse
 }=require("../controllers/Course");
 
 const {
@@ -54,6 +57,12 @@ router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);
 router.get("/getAllCourses",auth,getAllCourses);
 
 router.get("/getCourseDetails",auth, getCourseDetails);
+
+router.post("/editCourse", auth, isInstructor, editCourse)
+
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+
+router.delete("/deleteCourse", deleteCourse)
 
 
 
