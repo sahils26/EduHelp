@@ -327,6 +327,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
   //   dispatch(setLoading(true));
   let result = null
   try {
+    console.log("heloooooooo111111111")
     const response = await apiConnector(
       "POST",
       GET_FULL_COURSE_DETAILS_AUTHENTICATED,
@@ -337,6 +338,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
         Authorization: `Bearer ${token}`,
       }
     )
+    console.log("heloooooooooooo222222222222")
     console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
 
     if (!response.data.success) {

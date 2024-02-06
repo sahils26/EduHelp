@@ -57,7 +57,7 @@ export default function CourseInformationForm() {
       setValue("courseRequirements", course.instructions)
       setValue("courseImage", course.thumbnail)
     }
-    getCategories()
+    getCategories();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -72,8 +72,7 @@ export default function CourseInformationForm() {
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
-      currentValues.courseRequirements.toString() !==
-        course.instructions.toString() ||
+      currentValues.courseRequirements.toString() !== course.instructions.toString() ||
       currentValues.courseImage !== course.thumbnail
     ) {
       return true
@@ -149,13 +148,14 @@ export default function CourseInformationForm() {
     formData.append("status", COURSE_STATUS.DRAFT)
     formData.append("instructions", JSON.stringify(data.courseRequirements))
     formData.append("thumbnailImage", data.courseImage)
-    
+
     setLoading(true);
     const result = await addCourseDetails(formData,token)
     if (result) {
       dispatch(setStep(2))
       dispatch(setCourse(result))
     }
+  
     setLoading(false)
   }
 

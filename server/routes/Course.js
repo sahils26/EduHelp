@@ -8,7 +8,8 @@ const {
     getCourseDetails,
     editCourse,
     getInstructorCourses,
-    deleteCourse
+    deleteCourse,
+    getFullCourseDetails
 }=require("../controllers/Course");
 
 const {
@@ -63,6 +64,9 @@ router.post("/editCourse", auth, isInstructor, editCourse)
 router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 
 router.delete("/deleteCourse", deleteCourse)
+
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+
 
 
 

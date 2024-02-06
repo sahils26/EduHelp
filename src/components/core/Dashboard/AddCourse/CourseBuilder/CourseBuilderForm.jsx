@@ -52,6 +52,7 @@ const CourseBuilderForm = () => {
       setValue("sectionName", "");
     }
 
+
     //loading false
     setLoading(false);
   }

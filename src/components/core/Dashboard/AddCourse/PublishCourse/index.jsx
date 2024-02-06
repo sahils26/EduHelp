@@ -23,7 +23,7 @@ function PublishCourse(){
     
     const goToCourses=() =>{
         dispatch(resetCourseState());
-        //navigate("/dashboard/my-courses");
+        // navigate("/dashboard/my-courses");
     }
 
     const handleCoursePublish= async() => {
@@ -44,7 +44,7 @@ function PublishCourse(){
         if(result){
             goToCourses();
         }
-
+        console.log("course from publishCourse",course)
         setLoading(false);
 
     }

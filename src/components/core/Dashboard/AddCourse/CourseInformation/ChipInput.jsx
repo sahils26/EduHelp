@@ -21,10 +21,13 @@ export default function ChipInput({
   const [chips, setChips] = useState([])
 
   useEffect(() => {
+  
     if (editCourse) {
       // console.log(course)
       setChips(course?.tag)
     }
+   
+
     register(name, { required: true, validate: (value) => value.length > 0 })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -61,6 +64,7 @@ export default function ChipInput({
 
   // Render the component
   return (
+
     <div className="flex flex-col space-y-2">
       {/* Render the label for the input */}
       <label className="text-sm text-richblack-5" htmlFor={name}>
@@ -86,6 +90,8 @@ export default function ChipInput({
             </button>
           </div>
         ))}
+
+        
         {/* Render the input for adding new chips */}
         <input
           id={name}

@@ -1,12 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function RequirementField({name,label,register,errors,setValue,getValues}){
+
+    const { editCourse, course } = useSelector((state) => state.course)
 
     const [requirement,setRequirement]=useState("");
     const [requirementList,setRequirementList]=useState([]);
     
     useEffect(()=>{
+        console.log("requirementField",course?.instructions);
+        if(editCourse){
+            setRequirementList(course?.instructions);
+        }
         register(name,{
             required:true,
             validate: (value) => value.length > 0
@@ -16,7 +23,6 @@ function RequirementField({name,label,register,errors,setValue,getValues}){
     useEffect(()=>{
         setValue(name,requirementList);
     },[requirementList])
-
 
 
     const handleAddRequirement = () => {
