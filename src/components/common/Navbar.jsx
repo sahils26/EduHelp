@@ -26,8 +26,7 @@ const Navbar = () => {
         try{
             const result = await apiConnector("GET", categories.CATEGORIES_API);
             console.log("Printing Sublinks result:" , result?.data?.res);
-            setSsubLinks(result?.data?.res);
-            console.log("sublinks set");        
+            setSsubLinks(result?.data?.res);  
         }
         catch(error) {
             console.log("Could not fetch the category list");
@@ -36,8 +35,8 @@ const Navbar = () => {
 
 
     useEffect( () => {
-        console.log("PRINTING TOKEN", token);
-        fetchSublinks();
+        // console.log("PRINTING TOKEN", token);
+        return()=>fetchSublinks();
     },[] )
 
 
@@ -67,9 +66,9 @@ const Navbar = () => {
                                 <IoIosArrowDropdownCircle/>
 
                                 <div className='invisible absolute left-[50%]
-                                    translate-x-[-50%] translate-y-[50%]
-                                 top-[50%]
-                                flex flex-col rounded-md bg-richblack-700 p-3 text-richblack-5
+                                    translate-x-[-50%] translate-y-[20%]
+                                 top-[10%]
+                                flex flex-col rounded-md bg-richblack-700 p-4 text-richblack-5
                                 opacity-0 transition-all duration-200 group-hover:visible
                                 group-hover:opacity-100 lg:w-[300px] z-10'>
 

@@ -78,7 +78,7 @@ router.post("/createCategory",auth,isAdmin,createCategory);
 
 router.get("/showAllCategory",showAllCategory);
 
-router.get("/getCategoryPageDetails",categoryPageDetails);
+router.post("/getCategoryPageDetails",categoryPageDetails);
 
 
 
