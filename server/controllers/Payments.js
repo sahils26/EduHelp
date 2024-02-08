@@ -14,27 +14,28 @@ exports.capturePayment = async(req,res) =>{
     const {courses} = req.body;
     const userId = req.user.id;
 
+    
     if(!courses.length===0){
         return res.json({
             success:false,
             message:"Please provide Course ID"
         })
     }
-
+    
     let totalAmount=0;
-
+    
     for(const course_id of courses){
         let course;
         try{
             course=await Course.findById(course_id);
-
+            
             if(!course){
                 return res.status(410).json({
                     success:false,
                     message:"could not get the course"
                 }) 
             }
-
+            
             const uid=new mongoose.Types.ObjectId(userId);
             if(course.studentsEnrolled.includes(uid)){
                 return res.status(401).json({
@@ -42,10 +43,10 @@ exports.capturePayment = async(req,res) =>{
                     message:"Student is already enrolled"
                 })
             }
-
+            
             totalAmount += course.price;
-
-
+            
+            
         }catch(error){
             console.log(error);
             res.status(500).json({
@@ -54,25 +55,25 @@ exports.capturePayment = async(req,res) =>{
             })
         }
     }
-
+    
     const options= {
         amount : totalAmount *100,
-        currecy : "INR",
-        reciept: Math.random(Date.now()).toString(),
+        currency : "INR",
+        receipt: Math.random(Date.now()).toString(),
     }
-
+    
     try{
         const paymentResponse = await instance.orders.create(options);
-        res.jaon({
+        res.json({
             success:true,
-            message:"paymentResponse"
+            message:paymentResponse
         })
 
     }catch(error){
         console.log(error);
         return res.status(500).json({
             success:false,
-            message:error.message
+            message:"could not initiate order"
         })
     }
 
@@ -161,7 +162,7 @@ const enrollStudents = async(courses,userId,res)=>{
                 courseEnrollmentEmail(enrolledCourse.courseName,`${enrolledCourse.firstName}`)
             )
     
-            console.log("Email Sent Successfully" ,emailResponse.response)
+            // console.log("Email Sent Successfully" ,emailResponse.response)
 
         }catch(error){
             console.log(error);
