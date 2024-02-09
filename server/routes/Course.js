@@ -57,7 +57,7 @@ router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);
 
 router.get("/getAllCourses",auth,getAllCourses);
 
-router.get("/getCourseDetails",auth, getCourseDetails);
+router.post("/getCourseDetails", getCourseDetails);
 
 router.post("/editCourse", auth, isInstructor, editCourse)
 

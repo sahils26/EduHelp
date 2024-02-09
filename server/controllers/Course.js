@@ -270,27 +270,28 @@ exports.getAllCourses=async(req,res)=>{
 
 exports.getCourseDetails=async(req,res)=>{
     try{
-        const {courseId}= req.body;
-
+        const { courseId }= req.body
         const courseData=await Course.find({_id:courseId})
-                                                .populate(
-                                                    {
-                                                        path:"instructor",
-                                                        populate:{
-                                                            path:'additionalDetails'
-                                                        }
-                                                    }
-                                                )
-                                                .populate('category')
-                                                .populate('ratingAndReviews')
-                                                .populate({
-                                                    path:'courseContent',
-                                                    populate:{
-                                                        path:'subSection',
-                                                    }
-                                                })
-                                                .exec();
+		.populate(
+			{
+				path:"instructor",
+				populate:{
+					path:'additionalDetails'
+				}
+			}
+			)
+			.populate('category')
+			.populate('ratingAndReviews')
+			.populate({
+				path:'courseContent',
+				populate:{
+					path:'subSection',
+				}
+			})
+			.exec();
 
+		
+			
         if(!courseData){
             return res.status(400).json({
                 success:false,
@@ -298,9 +299,28 @@ exports.getCourseDetails=async(req,res)=>{
             })
         }
 
+
+
+		// let totalDurationInSeconds = 0
+		// courseData.courseContent.forEach((content) => {
+		//   content.subSection.forEach((subSection) => {
+		// 	const timeDurationInSeconds = parseInt(subSection.timeDuration)
+		// 	totalDurationInSeconds += timeDurationInSeconds
+		//   })
+		// })
+
+
+		
+		// const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+
+
         res.status(200).json({
-            courseData,
-            success:true,
+			success:true,
+            data:{
+				courseData,
+				// totalDuration
+			},
             message:'Courses detail fetched successfully'
         })
 
