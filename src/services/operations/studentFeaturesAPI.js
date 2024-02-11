@@ -97,6 +97,7 @@ async function sendPaymentSuccessEmail(response, amount, token) {
     }
 }
 
+
 //verify payment
 async function verifyPayment(bodyData, token, navigate, dispatch) {
     const toastId = toast.loading("Verifying Payment....");

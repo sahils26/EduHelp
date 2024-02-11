@@ -1,34 +1,39 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
-const uploadToCloudinary =require("../utils/dataUploader");
+const {uploadToCloudinary} =require("../utils/dataUploader");
 
 
 exports.updateProfile= async(req,res)=>{
     try{
-        const{gender ,dateOfBirth="", about="" , contactNumber}=req.body;
+        const{dateOfBirth="", about="" , contactNumber}=req.body;
 
+        console.log("profile11111111111")
         const userId=req.user.id;
-     
-        if(!gender || !contactNumber){
+        
+        if( !contactNumber){
             res.status(400).json({
                 success:false,
                 message:'All fields are required'
             })
         }
-
-        const userData= await User.findById(userId);
-        const profileId= userData.additionalDetails;
-        const updatedProfile= await Profile.findByIdAndUpdate({profileId},
-                                                            {gender:gender},
-                                                            {dateOfBirth:dateOfBirth},
-                                                            {about:about},
-                                                            {contactNumber:contactNumber}
-                                                        );
+        
+        const userDetails = await User.findById(userId);
+		const profile = await Profile.findById(userDetails.additionalDetails);
+        
+		// Update the profile fields
+		profile.dateOfBirth = dateOfBirth;
+		profile.about = about;
+		profile.contactNumber = contactNumber;
+        
+		// Save the updated profile
+		await profile.save();
+        
+        console.log("profile2222222222")
         
         res.status(200).json({
             success:true,
             message:'Profile updated successfully',
-            updatedProfile
+            profile
         })                                    
     }catch(error){
         res.status(500).json({
@@ -122,19 +127,24 @@ exports.updateDisplayPicture= async(req,res)=>{
         const image=req.files.displayPicture;
         const userId=req.user.id;
 
-        const uploadImage= await uploadToCloudinary(image,process.env.FOLDER_NAME,1000,1000);
-
-        const updatedUser= await User.findByIdAndUpdate({userId},     
-                                                {image:uploadImage.secure_url},
-                                                {new:true}
-                                            );
         
+        const uploadImage= await uploadToCloudinary(image,process.env.FOLDER_NAME,1000,1000);
+    
+
+        const updatedUser= await User.findByIdAndUpdate({_id:userId},     
+            {image:uploadImage.secure_url},
+            {new:true}
+            );
+        
+        console.log("dp3333333333",updatedUser);
+            
         res.status(200).json({
             success:true,
-            message:'Image upload successfully'
+            message:'Image upload successfully',
+            data:updatedUser,
         })
-
         
+
     }
     catch(error){
         console.log(error);
