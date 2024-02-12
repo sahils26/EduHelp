@@ -144,9 +144,6 @@ const CourseBuilderForm = () => {
 
       </div>
       
-
-
-
     </div>
   )
 }

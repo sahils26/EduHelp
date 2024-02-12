@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import IconBtn from '../../common/IconButton';
 
-export const VideoDetailsSidebar = () => {
+export const VideoDetailsSidebar = ({setReviewModal}) => {
 
     const [activeStatus, setActiveStatus] = useState("");
     const [videoBarActive, setVideoBarActive] = useState("");
@@ -98,7 +101,7 @@ export const VideoDetailsSidebar = () => {
                                                     key={index}
                                                     onClick={() => {
                                                         navigate(
-                                                            `/view-course/${courseEntireData?._id}/section/${course?._id}/sub-section/${topic?._id}`
+                                                            `/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}`
                                                         )
                                                         setVideoBarActive(topic?._id);
                                                     }}
