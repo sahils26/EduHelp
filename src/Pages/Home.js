@@ -9,6 +9,7 @@ import LearningLanguageSection from "../components/core/HomePage/LearningLanguag
 import InstructorSection from "../components/core/HomePage/InstructorSection";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 import Footer from "../components/common/Footer";
+import ReviewSlider from "../components/common/ReviewSlider";
 
 
 function Home(){  
@@ -182,7 +183,8 @@ function Home(){
             <div className="w-11/12 mx-auto max-w-maxContent flex flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
                 <InstructorSection/>
 
-                <h2>Review from other learners</h2>
+                <h2 className='text-center text-4xl font-semobold mt-10'>Review from Other Learners</h2>
+                <ReviewSlider/>
 
                 
             </div>

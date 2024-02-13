@@ -37,6 +37,8 @@ const {
     getAllRatings
 }=require("../controllers/RatingAndReview");
 
+const {updateCourseProgress} = require("../controllers/CouseProgress")
+
 
 const{auth, isStudent,isAdmin,isInstructor}=require("../middlewares/auth");
 
@@ -66,6 +68,8 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.delete("/deleteCourse", deleteCourse)
 
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+
+router.post("/updateCourseProgress", auth, isStudent,updateCourseProgress)
 
 
 
