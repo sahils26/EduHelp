@@ -1,3 +1,4 @@
+const Course = require("../models/Course");
 const CourseProgress = require("../models/CourseProgress");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
@@ -124,6 +125,9 @@ exports.getAllUserDetails=async(req,res)=>{
 
 
 
+
+
+
 exports.updateDisplayPicture= async(req,res)=>{
     try{
         const image=req.files.displayPicture;
@@ -232,3 +236,40 @@ exports.getEnrolledCourses = async (req, res) => {
 	  })
 	}
   }
+
+
+
+
+
+
+
+exports.instructorDashboard = async (req,res) => {
+    try{
+        const courseDetails = await  Course.find({instructor:req.user.id});
+        
+        const courseData = courseDetails.map((course)=>{
+            const totalStudentsEnrolled = course.studentsEnrolled.length;
+            const totalAmountGenerated = course.studentsEnrolled.length * course.price;
+            
+            const courseDataWithStats = {
+                _id : course._id,
+                courseName : course.courseName,
+                courseDescription : course.courseDescription,
+                totalStudentsEnrolled,
+                totalAmountGenerated,
+            }
+            return courseDataWithStats
+        })
+
+        return res.status(200).json({
+            course:courseData,
+        })
+
+    }catch(error){
+        console.error(error);
+        res.status(500).json({
+            success:false,
+            message:"internal server error"
+        })
+    }
+}

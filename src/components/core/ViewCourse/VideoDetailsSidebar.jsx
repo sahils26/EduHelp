@@ -13,7 +13,7 @@ export const VideoDetailsSidebar = ({setReviewModal}) => {
     const {
         courseSectionData,
         courseEntireData,
-        totalNoOfLectures,
+        totalNoOfLectures, 
         completedLectures,
     } = useSelector((state)=>state.viewCourse);
 
