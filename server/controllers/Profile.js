@@ -249,7 +249,7 @@ exports.instructorDashboard = async (req,res) => {
         
         const courseData = courseDetails.map((course)=>{
             const totalStudentsEnrolled = course.studentsEnrolled.length;
-            const totalAmountGenerated = course.studentsEnrolled.length * course.price;
+            const totalAmountGenerated = totalStudentsEnrolled * course.price;
             
             const courseDataWithStats = {
                 _id : course._id,
@@ -262,7 +262,7 @@ exports.instructorDashboard = async (req,res) => {
         })
 
         return res.status(200).json({
-            course:courseData,
+            courses:courseData,
         })
 
     }catch(error){

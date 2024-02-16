@@ -22,7 +22,7 @@ export default function ChangeProfilePicture() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
-    // console.log(file)
+    console.log("fileeeeee",file)
     if (file) {
       setImageFile(file)
       previewFile(file)
@@ -42,6 +42,7 @@ export default function ChangeProfilePicture() {
       console.log("uploading...")
       setLoading(true)
       const formData = new FormData()
+      console.log("imageFile",imageFile);
       formData.append("displayPicture", imageFile)
       // console.log("formdata", formData)
       dispatch(updateDisplayPicture(token, formData)).then(() => {
@@ -57,6 +58,7 @@ export default function ChangeProfilePicture() {
       previewFile(imageFile)
     }
   }, [imageFile])
+
   return (
     <>
       <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12 text-richblack-5">
