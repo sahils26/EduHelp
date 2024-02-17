@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import copy from "copy-to-clipboard"
 import { toast } from "react-hot-toast"
 import { BsFillCaretRightFill } from "react-icons/bs"
@@ -9,16 +9,18 @@ import { useNavigate } from "react-router-dom"
 import { addToCart } from "../../../slices/cartSlice"
 import { ACCOUNT_TYPE } from "../../../utils/constants"
 
+// const CourseIncludes = [
+//   "8 hours on-demand video",
+//   "Full Lifetime access",
+//   "Access on Mobile and TV",
+//   "Certificate of completion",
+// ]
 
 function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
   const { user } = useSelector((state) => state.profile)
   const { token } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  useEffect(()=>{
-    console.log("courseDetailsCard",course);
-  },[])
 
   const {
     thumbnail: ThumbnailImage,
@@ -72,16 +74,16 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
             <button
               className="yellowButton"
               onClick={
-                user && course?.studentsEnrolled.includes(user?._id)
+                user && course?.studentsEnroled.includes(user?._id)
                   ? () => navigate("/dashboard/enrolled-courses")
                   : handleBuyCourse
               }
             >
-              {user && course?.studentsEnrolled.includes(user?._id)
+              {user && course?.studentsEnroled.includes(user?._id)
                 ? "Go To Course"
                 : "Buy Now"}
             </button>
-            {(!user || !course?.studentsEnrolled.includes(user?._id)) && (
+            {(!user || !course?.studentsEnroled.includes(user?._id)) && (
               <button onClick={handleAddToCart} className="blackButton">
                 Add to Cart
               </button>
