@@ -29,8 +29,8 @@ function Sidebar(){
     return(
         <div className="text-white ">
 
-            <div className="flex min-w-[222px] flex-col border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] 
-            bg-richblack-800 py-10">
+            <div className="flex min-w-[230px] flex-col border-r-[1px] border-r-richblack-900  h-[calc(100vh-3.5rem)] min-h-screen
+            bg-richblack-850 py-10 font-edusa">
                 <div className="flex flex-col">
                     {
                         sidebarLinks.map((link,index)=>{
@@ -60,7 +60,7 @@ function Sidebar(){
                             btn1Handler: ()=> dispatch(logout(navigate)),
                             btn2Handler: ()=> setConfirmationModal(null)
                         })}
-                        className="px-8 py-2 text-sm font-medium text-richblack-300"
+                        className="px-8 py-2 text-sm font-medium text-richblack-200"
                     >
                         <div className="flex items-center gap-x-2">
                             <VscSignOut className='text-lg'/>

@@ -113,7 +113,7 @@ const CourseBuilderForm = () => {
             outline={true}
             customClasses={"text-white"}
           >
-            <MdAddCircleOutline className='text-yellow-50' size={20}/>
+            <MdAddCircleOutline className='text-richblack-550' size={20}/>
 
           </IconBtn>
           {editSectionName && (

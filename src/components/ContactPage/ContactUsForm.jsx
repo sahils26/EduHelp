@@ -18,8 +18,7 @@ function ContactUsForm(){
         console.log("Logging Data", data)
         setLoading(true);
         try{
-            // const response=await apiConnector("POST",contactusEndpoint.CONTACT_US_API,data)
-            const response={status:"ok"};
+            const response=await apiConnector("POST",contactusEndpoint.CONTACT_US_API,data)
             console.log("Logging response",response)
         }catch(error){
             console.log("Error : ", error.message );
@@ -31,8 +30,8 @@ function ContactUsForm(){
     useEffect(()=>{
         if(isSubmitSuccessful){
             reset({
-                firstname:"",
-                lastname:"",
+                firstName:"",
+                lastName:"",
                 email:"",
                 message:"",
                 phoneNo:"",
@@ -60,7 +59,7 @@ function ContactUsForm(){
                             />
                             {
                                 errors.firstName && (
-                                    <span className="-mt-1 text-[12px] text-yellow-100">Please enter your First Name</span>
+                                    <span className="-mt-1 text-[12px] text-richblack-550">Please enter your First Name</span>
                                 )
                             }
                         </label>
@@ -143,7 +142,7 @@ function ContactUsForm(){
                            
                             {
                                 errors.phoneNo && (
-                                    <span className="-mt-1 text-[12px] text-yellow-100">
+                                    <span className="-mt-1 text-[12px] text-richblack-550">
                                         {errors.phoneNo.message}
                                     </span>
                                 )
@@ -169,7 +168,7 @@ function ContactUsForm(){
                         />
                         {
                             errors.message && (
-                                <span className="-mt-1 text-[12px] text-yellow-100">Please enter your message</span>
+                                <span className="-mt-1 text-[12px] text-richblack-550">Please enter your message</span>
                             )
                         }
                     </label> 
@@ -178,7 +177,7 @@ function ContactUsForm(){
                 <button
                     disabled={loading}
                     type="submit"
-                    className={`rounded-md bg-yellow-50 px-6 py-3 text-center text-[13px] font-bold text-black shadow-[2px_2px_0px_0px_rgba(255,255,255,0.18)] 
+                    className={`rounded-md bg-richblack-550 px-6 py-3 text-center text-[13px] font-bold text-black shadow-[2px_2px_0px_0px_rgba(255,255,255,0.18)] 
                     ${
                      !loading &&
                      "transition-all duration-200 hover:scale-95 hover:shadow-none"

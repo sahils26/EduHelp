@@ -53,7 +53,7 @@ function RequirementField({name,label,register,errors,setValue,getValues}){
 
                 <button type="button"
                 onClick={handleAddRequirement}
-                className="font-semibold text-yellow-50">
+                className="font-semibold text-richblack-550">
                     Add
                 </button>
             </label>

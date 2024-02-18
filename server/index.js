@@ -5,6 +5,7 @@ const userRoutes=require("./routes/User");
 const profileRoutes=require("./routes/Profile");
 const paymentRoutes=require("./routes/Payments");
 const courseRoutes=require("./routes/Course");
+const contactUsRoute = require("./routes/Contact");
 
 const {connectDB} =require("./config/database");
 const {cloudinaryConnect} =require("./config/cloudinary");
@@ -53,6 +54,8 @@ app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/profile",profileRoutes);
 app.use("/api/v1/course",courseRoutes);
 app.use("/api/v1/payment",paymentRoutes);
+app.use("/api/v1/reach", contactUsRoute);
+
 
 //server issue
 // app.use(function(req, res, next) {

@@ -62,7 +62,7 @@ const VerifyEmail=()=>{
                                 gap: "0 6px",
                             }}
                         />
-                        <button type="submit" className="w-full bg-yellow-50 py-[12px] px-[12px] rounded-[8px] mt-6 font-medium text-richblack-900">
+                        <button type="submit" className="w-full bg-richblack-550 py-[12px] px-[12px] rounded-[8px] mt-6 font-semibold text-richblack-900">
                             Verify Email
                         </button>
                     </form>
@@ -75,7 +75,7 @@ const VerifyEmail=()=>{
                             </Link>
                         </div>  
                         <button 
-                        className="flex items-center text-blue-100 gap-x-2"
+                        className="flex items-center text-pink-500 gap-x-2"
                         onClick={()=> dispatch(sendOtp)(signupData.email)}
                         >
                             Resend it

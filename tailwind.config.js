@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       inter: ["Inter", "sans-serif"],
-      "edu-sa": ["Edu SA Beginner", "cursive"],
+      edusa: ["Edu SA Beginner", "cursive"],
       mono: ["Roboto Mono", "monospace"],
     },
     colors: {
@@ -16,14 +16,19 @@ module.exports = {
         25: "#DBDDEA",
         50: "#C5C7D4",
         100: "#AFB2BF",
+        150 :"#FFAC41", //yellow
         200: "#999DAA",
-        300: "#838894",
+        250: "#C17E59",
+        300: "#A74712",  //change
         400: "#6E727F",
         500: "#585D69",
+        550: "#64CCC5", //neon
         600: "#424854",
-        700: "#2C333F",
+        650: "#56380A",
+        700: "#323232",  //change
         800: "#161D29",
-        900: "#000814",
+        850: "#191919",  //grey
+        900: "#000000",
       },
       richblue: {
         5: "#ECF5FF",

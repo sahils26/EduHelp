@@ -43,9 +43,9 @@ export default function CoursesTable({ courses, setCourses }) {
 
   return (
     <>
-      <Table className="rounded-xl border border-richblack-800 ">
+      <Table className="rounded-xl border border-richblack-850 ">
         <Thead>
-          <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-800 px-6 py-2">
+          <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-850 px-6 py-2">
             <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-100">
               Courses
             </Th>
@@ -72,7 +72,7 @@ export default function CoursesTable({ courses, setCourses }) {
             courses?.map((course) => (
               <Tr
                 key={course._id}
-                className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
+                className="flex gap-x-10 border-b border-richblack-850 px-6 py-8"
               >
                 <Td className="flex flex-1 gap-x-4">
                   <img
@@ -103,8 +103,8 @@ export default function CoursesTable({ courses, setCourses }) {
                         Drafted
                       </p>
                     ) : (
-                      <p className="flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium text-yellow-100">
-                        <div className="flex h-3 w-3 items-center justify-center rounded-full bg-yellow-100 text-richblack-700">
+                      <p className="flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-bold text-richblack-550 ">
+                        <div className="flex h-3 w-3 items-center justify-center rounded-full bg-richblack-550 text-richblack-700 ">
                           <FaCheck size={8} />
                         </div>
                         Published
@@ -125,7 +125,7 @@ export default function CoursesTable({ courses, setCourses }) {
                       navigate(`/dashboard/edit-course/${course._id}`)
                     }}
                     title="Edit"
-                    className="px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300"
+                    className="px-2 transition-all duration-200 hover:scale-110 hover:text-brown-600"
                   >
                     <FiEdit2 size={20} />
                   </button>

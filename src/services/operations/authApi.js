@@ -144,7 +144,6 @@ export function getPasswordResetToken(email, setEmailSent) {
         email,
       })
       
-      console.log("2222222222222")
       console.log("RESETPASSTOKEN RESPONSE............", response)
 
       if (!response.data.success) {

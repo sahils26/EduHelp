@@ -9,7 +9,7 @@ function CourseCard({cardData,currentCard,setCurrentCard}){
         <div
       className={`w-[360px] lg:w-[30%] ${
         currentCard === cardData?.heading
-          ? "bg-white shadow-[12px_12px_0_0] shadow-yellow-50"
+          ? "bg-white shadow-[12px_12px_0_0] shadow-richblack-550"
           : "bg-richblack-800"
       }  text-richblack-25 h-[300px] box-border cursor-pointer`}
       onClick={() => setCurrentCard(cardData?.heading)}
@@ -28,7 +28,7 @@ function CourseCard({cardData,currentCard,setCurrentCard}){
 
       <div
         className={`flex justify-between ${
-          currentCard === cardData?.heading ? "text-blue-300" : "text-richblack-300"
+          currentCard === cardData?.heading ? "text-blue-300" : "text-richblack-25"
         } px-6 py-3 font-medium`}
       >
         {/* Level */}

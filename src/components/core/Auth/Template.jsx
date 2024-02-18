@@ -9,7 +9,7 @@ function Template({ title, description1, description2, image, formType }) {
   const { loading } = useSelector((state) => state.auth)
 
   return (
-    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+    <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center font-mono">
       {loading ? (
         <div className="spinner"></div>
       ) : (
@@ -20,7 +20,7 @@ function Template({ title, description1, description2, image, formType }) {
             </h1>
             <p className="mt-4 text-[1.125rem] leading-[1.625rem]">
               <span className="text-richblack-100">{description1}</span>{" "}
-              <span className="font-edu-sa font-bold italic text-blue-100">
+              <span className="font-edu-sa font-bold italic text-brown-500">
                 {description2}
               </span>
             </p>
@@ -38,7 +38,7 @@ function Template({ title, description1, description2, image, formType }) {
               src={image}
               alt="Students"
               width={558}
-              height={504}
+              height={450}
               loading="lazy"
               className="absolute -top-4 right-4 z-10"
             />

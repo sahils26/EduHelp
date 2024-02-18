@@ -65,13 +65,13 @@ export const Catalog = () => {
       }
 
   return (
-    <>
+    <div className='font-mono'>
       {/* Hero Section */}
-      <div className=" box-content bg-richblack-800 px-4">
-        <div className="mx-auto flex min-h-[260px] max-w-maxContentTab flex-col justify-center gap-4 lg:max-w-maxContent ">
-          <p className="text-sm text-richblack-300">
+      <div className=" box-content bg-richblack-700 px-4">
+        <div className="mx-auto flex min-h-[260px] max-w-maxContentTab  flex-col justify-center gap-4 lg:max-w-maxContent ">
+          <p className="text-sm text-richblack-400">
             {`Home / Catalog / `}
-            <span className="text-yellow-25">
+            <span className="text-richblack-550">
               {catalogPageData?.data?.selectedCategory?.name}
             </span>
           </p>
@@ -91,7 +91,7 @@ export const Catalog = () => {
           <p
             className={`px-4 py-2 ${
               active === 1
-                ? "border-b border-b-yellow-25 text-yellow-25"
+                ? "border-b border-b-richblack-550 text-richblack-550"
                 : "text-richblack-50"
             } cursor-pointer`}
             onClick={() => setActive(1)}
@@ -101,7 +101,7 @@ export const Catalog = () => {
           <p
             className={`px-4 py-2 ${
               active === 2
-                ? "border-b border-b-yellow-25 text-yellow-25"
+                ? "border-b border-b-richblack-550 text-richblack-550"
                 : "text-richblack-50"
             } cursor-pointer`}
             onClick={() => setActive(2)}
@@ -142,6 +142,6 @@ export const Catalog = () => {
       </div>
 
       <Footer />
-    </>
+    </div>
   )
 };

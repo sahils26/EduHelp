@@ -29,7 +29,7 @@ const Course_Card = ({ course, Height }) => {
               {course?.instructor?.firstName} {course?.instructor?.lastName}
             </p>
             <div className="flex items-center gap-2">
-              <span className="text-yellow-5">{averageReviewCount || 0}</span>
+              <span className="text-richblack-550">{averageReviewCount || 0}</span>
               <RatingStars Review_Count={averageReviewCount} />
               <span className="text-richblack-400">
                 {course?.ratingAndReviews?.length} Ratings

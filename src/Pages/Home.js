@@ -2,7 +2,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import HighlightText from "../components/core/HomePage/HighlightText";
 import CTAButton from "../components/core/HomePage/Button";
-import Banner from "../assets/Images/banner.mp4"
+import Banner from "../assets/Images/pages-vid.mp4"
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
@@ -15,14 +15,14 @@ import ReviewSlider from "../components/common/ReviewSlider";
 function Home(){  
 
     return(
-        <div>
+        <div className="font-mono">
             
             {/* Section 1 */}
             <div className="  relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center text-white justify-between">
                 
                 <div className="mt-8">
                     <Link to={"/signup"}>
-                        <div className="group  p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200 transition-all duration-200 hover:scale-95 w-fit">
+                        <div className="group  p-1 mx-auto rounded-full bg-richblack-700 font-bold text-richblack-5 transition-all duration-200 hover:scale-95 w-fit">
                             <div className="flex flex-row items-center gap-2 rounded-full px-7 py-[5px] group-hover:bg-richblack-900">
                                 <p>Become An Instructor</p> 
                                 <FaArrowRight/>
@@ -36,7 +36,7 @@ function Home(){
                     <HighlightText>Coding Skills</HighlightText>
                 </div>
 
-                <div className="m-3 w-[80%] text-center text-base font-bold text-richblack-300">
+                <div className="m-3 w-[80%] text-center text-base font-bold text-richblack-400">
                     With our online coding courses, you can learn at your own pace, from anywhere in the world, and get access to a wealth of resources, including hands-on projects, quizzes, and personalized feedback from instructors. 
                 </div>
 
@@ -49,7 +49,7 @@ function Home(){
                     </CTAButton>
                 </div>
 
-                <div className="mx-3 my-11  shadow-blue-400 shadow-[_0px_0px_25px_5px]">
+                <div className="mx-3 my-11  shadow-richblack-250 shadow-[_0px_0px_25px_5px]">
                     <video muted loop autoPlay src={Banner}/>
                 </div>
 
@@ -61,7 +61,7 @@ function Home(){
                         heading={
                             <div className="text-4xl font-bold">
                                 Unlock Your 
-                                <HighlightText>Coding Potential</HighlightText>
+                                <HighlightText >Coding Potential</HighlightText>
                                 with our online courses
                             </div>   
                         }
@@ -85,7 +85,7 @@ function Home(){
         
                         codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title>\n<linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a>\n<ahref="three/">Three</a>\n/nav>\n`}
 
-                        codeColour={"text-blue-200"}
+                        codeColour={"text-richblack-150"}
 
 
                     />
@@ -123,7 +123,7 @@ function Home(){
         
                         codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title>\n<linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a>\n<ahref="three/">Three</a>\n/nav>\n`}
 
-                        codeColour={"text-blue-200"}
+                        codeColour={"text-richblack-150"}
 
 
                     />

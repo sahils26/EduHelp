@@ -12,7 +12,7 @@ function CodeBlocks({position, heading ,subHeading , ctaButton1 ,ctaButton2, cod
                 <div>
                     {heading}
                 </div>
-                <div className="text-richblack-300 font-bold">
+                <div className="text-richblack-400 font-bold">
                     {subHeading}
                 </div>
                 <div className="flex gap-7 mt-7">

@@ -1,5 +1,5 @@
 import { Link, matchPath } from "react-router-dom";
-import logo from "../../assets/Logo/Logo-Full-Light.png"
+import logo from "../../assets/Logo/eduhelp bg2.png"
 import { NavbarLinks } from "../../data/navbar-links";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -46,11 +46,11 @@ const Navbar = () => {
     }
 
   return (
-    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
+    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 bg-richblack-850 shadow-richblack-650 shadow-2xl font-thin font-edusa'>
       <div className='flex w-11/12 max-w-maxContent items-center justify-between'>
         {/* Image */}
       <Link to="/">
-        <img className="text-white " src={logo} alt="" width={160} height={42} loading='lazy'/>
+        <img className="" src={logo} alt="" width={140} height={36} loading='lazy'/>
       </Link>
 
       {/* Nav Links */}
@@ -102,7 +102,7 @@ const Navbar = () => {
 
                         ) : (
                             <Link to={link?.path}>
-                                <p className={`${ matchRoute(link?.path) ? "text-yellow-25" : "text-richblack-25"}`}>
+                                <p className={`${ matchRoute(link?.path) ? "text-richblack-550" : "text-richblack-25"}`}>
                                     {link.title}
                                 </p>
                                 
@@ -137,7 +137,7 @@ const Navbar = () => {
             {
                 token === null && (
                     <Link to="/login">
-                        <button className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                        <button className='border border-richblack-700 bg-richblack-850 px-[12px] py-[8px] text-richblack-100 rounded-md'>
                             Log in
                         </button>
                     </Link>
@@ -146,7 +146,7 @@ const Navbar = () => {
             {
                 token === null && (
                     <Link to="/signup">
-                        <button  className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                        <button  className='border border-richblack-700 bg-richblack-850 px-[12px] py-[8px] text-richblack-100 rounded-md'>
                             Sign Up
                         </button>
                     </Link>
