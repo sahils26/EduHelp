@@ -1,4 +1,4 @@
-import Instructor from "../../../assets/Images/Instructor.png";
+import Instructor from "../../../assets/Images/man-reading.jpg";
 import HighlightText from "./HighlightText";
 import { FaArrowRight } from "react-icons/fa6";
 import CTAButton from "./Button";
@@ -7,9 +7,11 @@ function InstructorSection(){
 
     return(
         <div className="mt-16">
-            <div className="flex flex-row gap-10 items-center">
+            <div className="flex flex-row gap-10 items-center justify-between">
                 <div>
                     <img 
+                        height={100}
+                        width={500}
                         src={Instructor}
                         alt=""
                         className="shadow-lg shadow-white"/>
