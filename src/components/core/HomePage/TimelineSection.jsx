@@ -59,16 +59,16 @@ function TimelineSection(){
                 </div>
 
                 <div className="relative shadow-blue-200">
-                    <img src={timelineImage} alt="timeline_image" className=" shadow-blue-400 shadow-[_0px_0px_7px_0px]"/>
+                    <img src={timelineImage} alt="timeline_image" className=" shadow-brown-600  shadow-[_0px_0px_7px_5px]"/>
 
-                    <div className="absolute bg-caribbeangreen-700 flex flex-row text-white uppercase py-7 left-[8%] translate-y-[-50%] ">
-                        <div className="flex flex-row gap-3 items-center border-r border-caribbeangreen-300 px-5">
+                    <div className="absolute bg-brown-800 flex flex-row text-white uppercase py-7 left-[8%] translate-y-[-50%] ">
+                        <div className="flex flex-row gap-3 items-center border-r border-brown-200 px-5">
                             <p className="text-3xl font-bold">10</p>
-                            <p className="text-caribbeangreen-300 text-sm">Years of Experience</p>
+                            <p className="text-brown-400 text-sm">Years of Experience</p>
                         </div>
-                        <div className="flex flex-row gap-5 items-center border-r border-caribbeangreen-300 px-7">
+                        <div className="flex flex-row gap-5 items-center border-r border-brown-200 px-7">
                             <p className="text-3xl font-bold">250</p>
-                            <p className="text-caribbeangreen-300 text-sm">Types of Courses</p>
+                            <p className="text-brown-400 text-sm">Types of Courses</p>
                         </div>
                     </div>
 

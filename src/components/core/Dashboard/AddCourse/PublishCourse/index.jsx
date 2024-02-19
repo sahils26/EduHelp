@@ -5,6 +5,7 @@ import IconButton from "../../../../common/IconButton";
 import { resetCourseState, setStep } from "../../../../../slices/courseSlice";
 import { COURSE_STATUS } from "../../../../../utils/constants";
 import { editCourseDetails } from "../../../../../services/operations/courseDetailsAPI";
+import { useNavigate } from "react-router-dom";
 
 
 function PublishCourse(){
@@ -14,6 +15,7 @@ function PublishCourse(){
     const {course} = useSelector((state)=>state.course);
     const {token} = useSelector((state)=>state.auth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(course?.status === COURSE_STATUS.PUBLISHED){
@@ -23,7 +25,7 @@ function PublishCourse(){
     
     const goToCourses=() =>{
         dispatch(resetCourseState());
-        // navigate("/dashboard/my-courses");
+        navigate("/dashboard/my-courses");
     }
 
     const handleCoursePublish= async() => {

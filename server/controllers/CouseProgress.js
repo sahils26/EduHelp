@@ -1,48 +1,56 @@
 const CourseProgress = require("../models/CourseProgress");
+const SubSection = require("../models/SubSection");
 
-exports.updateCourseProgress = async(req,res)=>{
-    const {courseId,subSectionId} = req.body;
-    const userId = req.user.id;
-     
-    try{
+
+
+
+
+
+
+exports.updateCourseProgress = async (req, res) => {
+    const { courseId, subSectionId } = req.body
+    const userId = req.user.id
+  
+    try {
+      // Check if the subsection is valid
+      console.log("111111111111",userId)
+      
+      const subsection = await SubSection.findById(subSectionId)
+      if (!subsection) {
+          return res.status(404).json({ error: "Invalid subsection" })
+        }
         
-        const subSectionId = await SubSection.findById(subSectionId);
-        if(!subSectionId){
-            return res.status(404).json({
-                success:false,
-                message:"Invalid SubSection"
-            })
+        // Find the course progress document for the user and course(******some problem here in matching courseID**********)
+        let courseProgress = await CourseProgress.findOne({
+            courseID : courseId,
+            userId: userId,
+        })
+        let courseProgress2 = await CourseProgress.find();
+    
+
+        if (!courseProgress) {
+        // If course progress doesn't exist, create a new one
+        return res.status(404).json({
+          success: false,
+          message: "Course progress Does Not Exist",
+        })
+      } else {
+        // If course progress exists, check if the subsection is already completed
+        if (courseProgress.completedVideos.includes(subSectionId)) {
+          return res.status(400).json({ error: "Subsection already completed" })
         }
-
-        let CourseProgress = await CourseProgress.findOne({
-            courseID:courseId,
-            userId:userId,
-        })
-        if(!CourseProgress){
-            return res.status(404).json({
-                success:false,
-                message:"Course Progress does not exist",
-            })
-        }else{
-            if(CourseProgress.completedVideos.includes(subSectionId)){
-                return res.status(400).json({
-                    error:"Subsection is already completed"
-                })
-            }
-            CourseProgress.completedVideos.push(subSectionId);
-        }
-
-        await CourseProgress.save();
-
-        return res.status(200).json({
-            success:true,
-            message:"Course Progress Updated Successfully"
-        })
-
-    }catch(error){
-        console.error(error);
-        return res.status(400).json({
-            error:"internal server error"
-        })
+  
+        // Push the subsection into the completedVideos array
+        courseProgress.completedVideos.push(subSectionId)
+      }
+  
+      // Save the updated course progress
+      await courseProgress.save()
+  
+      return res.status(200).json({ message: "Course progress updated" })
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ error: "Internal server error" })
     }
-}
+  }
+  
