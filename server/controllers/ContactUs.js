@@ -24,7 +24,7 @@ exports.contactUsController = async (req, res) => {
 
     const emailToSelf = await mailSender(
       process.env.MAIL_USER,
-      "USER CONTACT US DATA",
+      "USER CONTACT US DATA from EduHelp",
       `<p>UserEmail : ${email}</p> 
        <p>First Name : ${firstName}</p>
        <p>Last Name : ${lastName}</p>

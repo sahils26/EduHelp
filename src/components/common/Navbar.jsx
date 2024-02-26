@@ -46,7 +46,7 @@ const Navbar = () => {
     }
 
   return (
-    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 bg-richblack-850 shadow-richblack-650 shadow-2xl font-thin font-edusa'>
+    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 bg-richblack-850 shadow-richblack-650 shadow-2xl font-thin       font-edusa'>
       <div className='flex w-11/12 max-w-maxContent items-center justify-between'>
         {/* Image */}
       <Link to="/">
