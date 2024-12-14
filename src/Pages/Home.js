@@ -184,7 +184,7 @@ function Home(){
                 <InstructorSection/>
 
                 <h2 className='text-center text-4xl font-semobold mt-10'>Review from Other Learners</h2>
-                <ReviewSlider/>
+                {/* <ReviewSlider/> */}
 
                 
             </div>
