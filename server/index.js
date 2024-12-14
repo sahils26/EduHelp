@@ -22,13 +22,34 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-    cors({
-        origin: ['http://localhost:3000'],
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE"],
-    })
-    )
+// app.use(
+//     cors({
+//         origin: ['http://localhost:3000'],
+//         credentials: true,
+//         methods: ["GET", "POST", "PUT", "DELETE"],
+//     })
+//     )
+
+
+//Mohan's code
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://eduhelp-zeta.vercel.app/'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Include cookies if needed
+}));
+//till here 
+
+
 
 app.use(
     fileUpload({
@@ -36,6 +57,8 @@ app.use(
         tempFileDir:"/tmp",
     })
 )
+
+
 
 //new code for cors
 // app.use(cors());
