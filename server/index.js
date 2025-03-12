@@ -14,6 +14,7 @@ const dotenv=require("dotenv");
 const fileUpload=require("express-fileupload");
 const cors=require("cors");
 
+console.log("Server starting...");
 
 dotenv.config();
 const PORT=process.env.PORT || 4000;
@@ -30,23 +31,24 @@ app.use(cookieParser());
 //     })
 //     )
 
+app.use(cors());  // Allow all origins for testing
 
 //Mohan's code
-const allowedOrigins = [
-    'http://localhost:3000',
-    'https://eduhelp-zeta.vercel.app/'
-];
+// const allowedOrigins = [
+//     'http://localhost:3000',
+//     'https://edu-help-one.vercel.app/'
+// ];
 
-app.use(cors({
-    origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true, // Include cookies if needed
-}));
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (allowedOrigins.includes(origin) || !origin) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true, // Include cookies if needed
+// }));
 //till here 
 
 
