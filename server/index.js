@@ -58,10 +58,12 @@ app.use(cookieParser());
 
   //till here
 
+
 // Mohan's code
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://edu-help-ptlg.vercel.app/',
+    'https://edu-help-six.vercel.app/',
+    'https://edu-help-ptlg.vercel.app',
     'edu-help-ptlg-git-master-sahil-sajwans-projects.vercel.app',
     'https://vercel.com/sahil-sajwans-projects/edu-help-ptlg/GUGMnzYPeCmiqyuGByRMNtuN7rha'
 ];
