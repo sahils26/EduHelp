@@ -31,25 +31,52 @@ app.use(cookieParser());
 //     })
 //     )
 
-app.use(cors());  // Allow all origins for testing
+// app.use(cors());   Allow all origins for testing
 
-//Mohan's code
-// const allowedOrigins = [
-//     'http://localhost:3000',
-//     'https://edu-help-one.vercel.app/'
-// ];
 
-// app.use(cors({
+// claudes code
+// const allowedOrigins =process.env.NODE_ENV === 'development' 
+// ? ['http://localhost:3000']  // Development origins
+// : ['https://edu-help-one.vercel.app/']; //production origin
+//   app.use(cors({
+//     origin: '*',  // Allow all origins temporarily for testing
+//     credentials: true
+//   }));
+
+//   app.use(cors({
 //     origin: function (origin, callback) {
-//         if (allowedOrigins.includes(origin) || !origin) {
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
+//       console.log("Request origin:", origin);
+//       console.log("Allowed origins:", allowedOrigins);
+//       if (allowedOrigins.includes(origin) || !origin) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
 //     },
-//     credentials: true, // Include cookies if needed
-// }));
-//till here 
+//     credentials: true
+//   }));
+
+  //till here
+
+// Mohan's code
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://edu-help-ptlg.vercel.app/',
+    'edu-help-ptlg-git-master-sahil-sajwans-projects.vercel.app',
+    'https://vercel.com/sahil-sajwans-projects/edu-help-ptlg/GUGMnzYPeCmiqyuGByRMNtuN7rha'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // Include cookies if needed
+}));
+// till here 
 
 
 
