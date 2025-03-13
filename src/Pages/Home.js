@@ -17,7 +17,7 @@ function Home(){
     useEffect(() => {
         const testApiConnection = async () => {
           try {
-            const fullUrl = `${process.env.REACT_APP_BACKEND_URL || 'https://eduhelp-w00m.onrender.com'}/`;
+            const fullUrl = `${process.env.REACT_APP_BASE_URL || 'https://eduhelp-w00m.onrender.com'}/`;
             
             console.log('Attempting to fetch:', fullUrl);
             
