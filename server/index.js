@@ -239,28 +239,55 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+const corsMiddleware = require('./middlewares/cors');
+
 
 console.log("Server starting...");
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 
+
+// Apply CORS middleware FIRST - before anything else
+// app.use(corsMiddleware);
+
+
+
 // CORS middleware - this needs to be before ANY route handlers
+// app.use((req, res, next) => {
+//   // Allow any origin for now - you can restrict this later once it's working
+//   res.header('Access-Control-Allow-Origin', '*');
+  
+//   // Add required CORS headers
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+  
+//   // Handle preflight requests
+//   if (req.method === 'OPTIONS') {
+//     return res.status(200).end();
+//   }
+  
+//   next();
+// });
+
+
+
+//claude's code (13-03)
 app.use((req, res, next) => {
-  // Allow any origin for now - you can restrict this later once it's working
-  res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS') return res.sendStatus(200);
+    next();
+  });
   
-  // Add required CORS headers
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  
-  next();
-});
+  app.get('/test', (req, res) => {
+    res.json({ message: 'CORS test successful' });
+  });
+//
+
+
+
 
 // Standard middleware
 app.use(express.json());
