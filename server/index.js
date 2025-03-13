@@ -317,7 +317,7 @@ app.get("/", (req, res) => {
         message: 'Your server is running'
     });
 });
-
+    
 // Start server
 app.listen(PORT, () => {
     console.log(`App is running at ${PORT}`);
