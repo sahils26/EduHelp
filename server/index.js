@@ -14,6 +14,26 @@ const dotenv=require("dotenv");
 const fileUpload=require("express-fileupload");
 const cors=require("cors");
 
+
+
+//FOR CORS3
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    
+    // Handle preflight
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+    
+    next();
+  });
+
+
+
+
+
 console.log("Server starting...");
 
 dotenv.config();
@@ -41,39 +61,31 @@ const allowedOrigins = [
     'http://localhost:3000',
     'https://edu-help-six.vercel.app',
     'https://edu-help-ptlg.vercel.app',
-    // Add any other potential Vercel preview URLs
+    'https://edu-help-ptlg-git-master-sahil-sajwans-projects.vercel.app',
+    'https://edu-help-temp.vercel.app',
+    'https://edu-help-temp.vercel.app/'
 ];
 
-const corsOptions = {
+app.use(cors({
     origin: function (origin, callback) {
-        console.log('Incoming origin:', origin);
+        // For requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
         
-        if (!origin || allowedOrigins.some(allowed => 
-            origin && origin.startsWith(allowed)
-        )) {
+        // Check if the origin is allowed
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.match(/\.vercel\.app$/)) {
             callback(null, true);
         } else {
             console.log('Blocked origin:', origin);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: [
-        'Origin', 
-        'X-Requested-With', 
-        'Content-Type', 
-        'Accept', 
-        'Authorization'
-    ],
     credentials: true,
-    optionsSuccessStatus: 200
-};
-
-// IMPORTANT: Place this BEFORE your routes
-app.use(cors(corsOptions));
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+}));
 
 // Handle preflight requests
-app.options('*', cors(corsOptions));
+app.options('*', cors());
 //till here
 
 
@@ -125,7 +137,7 @@ app.use(
 cloudinaryConnect();
 
 // IMPORTANT: Place this BEFORE your routes(claudes CORS code)
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/profile",profileRoutes);
@@ -145,28 +157,28 @@ app.use("/api/v1/reach", contactUsRoute);
 
 
 //CODE FOR CORS
-app.get("/", (req, res) => {
-    // Add these headers
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+// app.get("/", (req, res) => {
+//     // Add these headers
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     
-    return res.json({
-        success: true,
-        message: 'Your server is running'
-    });
-});
+//     return res.json({
+//         success: true,
+//         message: 'Your server is running'
+//     });
+// });
 //
 
 
 
 
-// app.get("/",(req,res)=>{
-//     return res.json({
-//         success:true,
-//         message:'your server is running'
-//     })
-// })
+app.get("/",(req,res)=>{
+    return res.json({
+        success:true,
+        message:'your server is running'
+    })
+})
 
 
 app.listen(PORT,()=>{
