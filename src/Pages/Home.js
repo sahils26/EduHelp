@@ -17,8 +17,22 @@ function Home(){
     useEffect(() => {
         const testApiConnection = async () => {
           try {
-            console.log('Backend URL:', process.env.REACT_APP_BASE_URL);
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/`);
+            const fullUrl = `${process.env.REACT_APP_BACKEND_URL || 'https://eduhelp-w00m.onrender.com'}/`;
+            
+            console.log('Attempting to fetch:', fullUrl);
+            
+            const response = await fetch(fullUrl, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                // Add these headers
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+              }
+            });
+            
+            console.log('Response status:', response.status);
             
             if (!response.ok) {
               console.error('API response not OK', response.status, response.statusText);
@@ -28,13 +42,16 @@ function Home(){
             const data = await response.json();
             console.log('API Test Response:', data);
           } catch (error) {
-            console.error('API Connection Error:', error);
+            console.error('API Connection Error:', {
+              message: error.message,
+              name: error.name,
+              stack: error.stack
+            });
           }
         };
       
         testApiConnection();
       }, []);
-      
 
     return(
         <div className="font-mono">

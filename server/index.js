@@ -34,22 +34,24 @@ app.use(cookieParser());
 // app.use(cors());   Allow all origins for testing
 
 
+
+
 //claude's CORS
 const cors = require('cors');
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://edu-help-six.vercel.app', // Your Vercel deployment URL
-    'https://eduhelp-w00m.onrender.com' // Your backend URL (optional, but can help)
+    'https://edu-help-six.vercel.app',
+    'https://edu-help-ptlg.vercel.app',
+    // Add any other potential Vercel preview URLs
 ];
 
 const corsOptions = {
     origin: function (origin, callback) {
         console.log('Incoming origin:', origin);
         
-        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin || allowedOrigins.some(allowed => 
-            origin.startsWith(allowed)
+            origin && origin.startsWith(allowed)
         )) {
             callback(null, true);
         } else {
@@ -69,14 +71,14 @@ const corsOptions = {
     optionsSuccessStatus: 200
 };
 
-
-
-// Apply CORS before your routes
+// IMPORTANT: Place this BEFORE your routes
 app.use(cors(corsOptions));
 
 // Handle preflight requests
 app.options('*', cors(corsOptions));
 //till here
+
+
 
 
 // Mohan's code
@@ -124,6 +126,9 @@ app.use(
 
 cloudinaryConnect();
 
+// IMPORTANT: Place this BEFORE your routes(claudes CORS code)
+app.use(cors(corsOptions));
+
 app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/profile",profileRoutes);
 app.use("/api/v1/course",courseRoutes);
@@ -140,12 +145,30 @@ app.use("/api/v1/reach", contactUsRoute);
 //   });
 
 
-app.get("/",(req,res)=>{
+
+//CODE FOR CORS
+app.get("/", (req, res) => {
+    // Add these headers
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    
     return res.json({
-        success:true,
-        message:'your server is running'
-    })
-})
+        success: true,
+        message: 'Your server is running'
+    });
+});
+//
+
+
+
+
+// app.get("/",(req,res)=>{
+//     return res.json({
+//         success:true,
+//         message:'your server is running'
+//     })
+// })
 
 
 app.listen(PORT,()=>{
