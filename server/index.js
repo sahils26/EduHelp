@@ -34,50 +34,70 @@ app.use(cookieParser());
 // app.use(cors());   Allow all origins for testing
 
 
-// claudes code
-// const allowedOrigins =process.env.NODE_ENV === 'development' 
-// ? ['http://localhost:3000']  // Development origins
-// : ['https://edu-help-one.vercel.app/']; //production origin
-//   app.use(cors({
-//     origin: '*',  // Allow all origins temporarily for testing
-//     credentials: true
-//   }));
+//claude's CORS
+const cors = require('cors');
 
-//   app.use(cors({
-//     origin: function (origin, callback) {
-//       console.log("Request origin:", origin);
-//       console.log("Allowed origins:", allowedOrigins);
-//       if (allowedOrigins.includes(origin) || !origin) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true
-//   }));
-
-  //till here
-
-
-// Mohan's code
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://edu-help-six.vercel.app',
-    'https://edu-help-ptlg.vercel.app',
-    'edu-help-ptlg-git-master-sahil-sajwans-projects.vercel.app',
-    'https://vercel.com/sahil-sajwans-projects/edu-help-ptlg/GUGMnzYPeCmiqyuGByRMNtuN7rha'
+    'https://edu-help-six.vercel.app', // Your Vercel deployment URL
+    'https://eduhelp-w00m.onrender.com' // Your backend URL (optional, but can help)
 ];
 
-app.use(cors({
+const corsOptions = {
     origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin) || !origin) {
+        console.log('Incoming origin:', origin);
+        
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin || allowedOrigins.some(allowed => 
+            origin.startsWith(allowed)
+        )) {
             callback(null, true);
         } else {
+            console.log('Blocked origin:', origin);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true, // Include cookies if needed
-}));
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+        'Origin', 
+        'X-Requested-With', 
+        'Content-Type', 
+        'Accept', 
+        'Authorization'
+    ],
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+
+
+// Apply CORS before your routes
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+//till here
+
+
+// Mohan's code
+// const allowedOrigins = [
+//     'http://localhost:3000',
+//     'https://edu-help-six.vercel.app',
+//     'https://edu-help-ptlg.vercel.app',
+//     'edu-help-ptlg-git-master-sahil-sajwans-projects.vercel.app',
+//     'https://vercel.com/sahil-sajwans-projects/edu-help-ptlg/GUGMnzYPeCmiqyuGByRMNtuN7rha'
+// ];
+
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (allowedOrigins.includes(origin) || !origin) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true, // Include cookies if needed
+// }));
 // till here 
 
 
