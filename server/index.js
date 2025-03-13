@@ -37,8 +37,6 @@ app.use(cookieParser());
 
 
 //claude's CORS
-const cors = require('cors');
-
 const allowedOrigins = [
     'http://localhost:3000',
     'https://edu-help-six.vercel.app',
