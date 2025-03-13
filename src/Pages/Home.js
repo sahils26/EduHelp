@@ -10,9 +10,31 @@ import InstructorSection from "../components/core/HomePage/InstructorSection";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
 import Footer from "../components/common/Footer";
 import ReviewSlider from "../components/common/ReviewSlider";
+import { useEffect } from "react";
 
 
 function Home(){  
+    useEffect(() => {
+        const testApiConnection = async () => {
+          try {
+            console.log('Backend URL:', process.env.REACT_APP_BASE_URL);
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/`);
+            
+            if (!response.ok) {
+              console.error('API response not OK', response.status, response.statusText);
+              return;
+            }
+            
+            const data = await response.json();
+            console.log('API Test Response:', data);
+          } catch (error) {
+            console.error('API Connection Error:', error);
+          }
+        };
+      
+        testApiConnection();
+      }, []);
+      
 
     return(
         <div className="font-mono">
@@ -190,6 +212,8 @@ function Home(){
             </div>
 
             <Footer/>
+
+            
         </div>
     )
 }
