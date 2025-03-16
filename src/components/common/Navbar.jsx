@@ -45,9 +45,6 @@ const Navbar = () => {
         fetchSublinks(); // Call the function directly in the effect body
         
         // If you need a cleanup function, you can still have it
-        return () => {
-            // Any cleanup code here if needed
-        };
     }, []);
 
 
