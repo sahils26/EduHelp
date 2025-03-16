@@ -35,10 +35,20 @@ const Navbar = () => {
     }
 
 
-    useEffect( () => {
-        // console.log("PRINTING TOKEN", token);
-        return()=>fetchSublinks();
-    },[] )
+    // useEffect( () => {
+    //     // console.log("PRINTING TOKEN", token);
+    //     return()=>fetchSublinks();
+    // },[] )
+
+
+    useEffect(() => {
+        fetchSublinks(); // Call the function directly in the effect body
+        
+        // If you need a cleanup function, you can still have it
+        return () => {
+            // Any cleanup code here if needed
+        };
+    }, []);
 
 
 
