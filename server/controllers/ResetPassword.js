@@ -6,52 +6,92 @@ const mailSender = require("../utils/mailSender")
 
 
 
-exports.resetPasswordToken= async(req,res)=> {
-    try{
-        const email=req.body.email;
+// exports.resetPasswordToken= async(req,res)=> {
+//     try{
+//         console.log("Inside resetPasswordToken")
+//         const email=req.body.email;
         
-        const user= await User.findOne({email:email});
-        if(!user){
+//         const user= await User.findOne({email:email});
+//         if(!user){
+//             return res.json({
+//                 success:false,
+//                 message:'Email not registered '
+//             })
+//         }
+        
+//         const token=crypto.randomUUID();
+        
+//         const updatedData= await User.findOneAndUpdate({email:email},
+//             {
+//                 token:token,
+//                 resetPasswordExpires: Date.now() + 3600000,
+//             })
+            
+            
+//             const url=`http://localhost:3000/update-password/${token}`;
+            
+//             await mailSender(
+//                 email,
+//                 "Password Reset",
+//                 `Your Link for email verification is ${url}. Please click this url to reset your password.`
+//               )            
+//         return res.json({
+//             success:true,
+//             message:'Email send Successfully, check email to send Password'
+//         });
+
+//     }catch(error){
+//         console.log(error);
+//         res.status(500).json({
+//             success:false,
+//             message:'something went wrong while resetting password'
+//         })
+//     }
+// }
+
+
+
+
+//resetPasswordToken
+exports.resetPasswordToken = async(req, res) => {
+    try{
+        console.log("object server")
+        const email = req.body.email;
+
+        const user = User.findOne({email: email});
+        if(!user){ 
             return res.json({
                 success:false,
-                message:'Email not registered '
-            })
+                message:'Your Email is not registered with us'
+            });
         }
+
+        //generate token 
+        const token = crypto.randomUUID();
+
+        //update user by adding token and expiration time
+        const updateDetails = await User.findOneAndUpdate({email:email},{token:token, resetPasswordExpires: Date.now() + 5*60*1000,}, {new:true});
         
-        const token=crypto.randomUUID();
-        
-        const updatedData= await User.findOneAndUpdate({email:email},
-            {
-                token:token,
-                resetPasswordExpires: Date.now() + 3600000,
-            })
-            
-            
-            const url=`http://localhost:3000/update-password/${token}`;
-            
-            await mailSender(
-                email,
-                "Password Reset",
-                `Your Link for email verification is ${url}. Please click this url to reset your password.`
-              )            
+        // url to be sent in mail
+        const url = `http://localhost:3000/update-password/${token}`;
+
+        // send mail 
+        await mailSender(email, "Password reset link: ", `Password Reset Link: ${url}`);
+
         return res.json({
             success:true,
-            message:'Email send Successfully, check email to send Password'
+            message:'Email sent successfully, please check email and change pwd',
         });
-
-    }catch(error){
-        console.log(error);
-        res.status(500).json({
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({
             success:false,
-            message:'something went wrong while resetting password'
+            message:'Something went wrong while sending reset pwd mail'
         })
     }
+
 }
-
-
-
-
-
 
 
 

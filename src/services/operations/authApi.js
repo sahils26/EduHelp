@@ -139,10 +139,11 @@ export function getPasswordResetToken(email, setEmailSent) {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
-      console.log("11111111111111")
+      console.log("11111111111111",RESETPASSTOKEN_API)
       const response = await apiConnector("POST", RESETPASSTOKEN_API, {
-        email,
+        email
       })
+      console.log("huihuihui")
       
       console.log("RESETPASSTOKEN RESPONSE............", response)
 
