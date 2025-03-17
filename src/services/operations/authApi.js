@@ -29,13 +29,6 @@ export function sendOtp(email, navigate) {
       console.log(response.data.success)
 
       if (!response.data.success) {
-        // Check for specific message about user already existing
-        if (response.data.message === "User already exists") {
-          toast.error("User already exist")
-        } else {
-          // Handle other error messages
-          toast.error(response.data.message)
-        }
         throw new Error(response.data.message)
       }
 
@@ -43,7 +36,11 @@ export function sendOtp(email, navigate) {
       navigate("/verify-email")
     } catch (error) {
       console.log("SENDOTP API ERROR............", error)
-      toast.error("Could Not Send OTP")
+      if (error.response?.data?.message === "User already exist") {
+        toast.error("User already exists")
+      } else {
+        toast.error("Could Not Send OTP")
+      }
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
