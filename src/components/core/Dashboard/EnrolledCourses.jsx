@@ -11,6 +11,7 @@ export default function EnrolledCourses() {
   const navigate = useNavigate()
 
   const [enrolledCourses, setEnrolledCourses] = useState(null)
+
   const getEnrolledCourses = async () => {
     try {
       const res = await getUserEnrolledCourses(token);
@@ -23,7 +24,7 @@ export default function EnrolledCourses() {
   };
 
   useEffect(() => {
-    return()=> getEnrolledCourses();
+    getEnrolledCourses();
   }, [])
 
   return (
