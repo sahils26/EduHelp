@@ -59,6 +59,7 @@ const mailSender = require("../utils/mailSender")
 
 //claude's code
 exports.resetPasswordToken = async(req, res) => {
+    console.log("Inside")
     try {
         console.log("Inside resetPasswordToken")
         const email = req.body.email;
