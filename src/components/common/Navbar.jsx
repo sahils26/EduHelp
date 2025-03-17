@@ -248,7 +248,7 @@ import { NavbarLinks } from '../../data/navbar-links';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {AiOutlineShoppingCart, AiOutlineMenu} from "react-icons/ai"
-import { apiConnector } from '../../services/apiconnector';
+import { apiConnector } from "../../services/apiConnector";
 import { categories } from '../../services/apis';
 import {IoIosArrowDropdownCircle} from "react-icons/io";
 import ProfileDropdown from '../core/auth/ProfileDropdown';
