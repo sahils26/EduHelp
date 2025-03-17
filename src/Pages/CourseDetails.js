@@ -146,10 +146,11 @@ import CourseDetailsCard from '../components/core/Course/CourseDetailsCard';
               course={courseData?.data?.courseData[0]}
               setConfirmationModal={setConfirmationModal}
               handleBuyCourse={handleBuyCourse}
-            />
+            />  
           </div>
         </div>
       </div> 
+      {confirmationModal && <ConfirmationModal modalData={confirmationModal}/>}
     </>
   )
 }

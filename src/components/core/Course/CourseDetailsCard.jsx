@@ -42,6 +42,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
       dispatch(addToCart(course))
       return
     }
+    console.log("Setting confirmation modal");
     setConfirmationModal({
       text1: "You are not logged in!",
       text2: "Please login to add To Cart",
