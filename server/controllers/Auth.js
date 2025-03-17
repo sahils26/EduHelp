@@ -8,6 +8,7 @@ const otpGenerator = require("otp-generator");
 const mailSender = require("../utils/mailSender");
 const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 require("dotenv").config();
+import { toast } from "react-hot-toast"
 
 exports.sendOTP = async (req, res) => {
   try {

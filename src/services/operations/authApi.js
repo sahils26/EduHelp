@@ -29,6 +29,13 @@ export function sendOtp(email, navigate) {
       console.log(response.data.success)
 
       if (!response.data.success) {
+        // Check for specific message about user already existing
+        if (response.data.message === "User already exists") {
+          toast.error("User already exist")
+        } else {
+          // Handle other error messages
+          toast.error(response.data.message)
+        }
         throw new Error(response.data.message)
       }
 
