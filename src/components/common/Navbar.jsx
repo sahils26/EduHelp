@@ -22,31 +22,82 @@ const Navbar = () => {
 
     const [ssubLinks, setSsubLinks]  = useState([]);
 
-    const fetchSublinks = async() => {
-        try{
-            const result = await apiConnector("GET", categories.CATEGORIES_API);
-            console.log("APIforCategories", categories.CATEGORIES_API);
-            console.log("Printing Sublinks result:" , result?.data?.res);
-            setSsubLinks(result?.data?.res);  
+    // const fetchSublinks = async() => {
+    //     try{
+    //         const result = await apiConnector("GET", categories.CATEGORIES_API);
+    //         console.log("APIforCategories", categories.CATEGORIES_API);
+    //         console.log("Printing Sublinks result:" , result?.data?.res);
+    //         setSsubLinks(result?.data?.res);  
+    //     }
+    //     catch(error) {
+    //         console.log("Could not fetch the category list");
+    //     }
+    // }
+
+
+    // // useEffect( () => {
+    // //     // console.log("PRINTING TOKEN", token);
+    // //     return()=>fetchSublinks();
+    // // },[] )
+
+
+    // useEffect(() => {
+    //     fetchSublinks(); // Call the function directly in the effect body
+        
+    //     // If you need a cleanup function, you can still have it
+    // }, []);
+
+
+    // In your component where you fetch the categories
+
+
+const [isLoading, setIsLoading] = useState(true);
+const [retryCount, setRetryCount] = useState(0);
+
+const fetchSublinks = async() => {
+    setIsLoading(true);
+    try {
+        const result = await apiConnector("GET", categories.CATEGORIES_API);
+        console.log("APIforCategories", categories.CATEGORIES_API);
+        console.log("Printing Sublinks result:", result?.data?.res);
+        
+        if (result?.data?.res) {
+            setSsubLinks(result.data.res);
+            setIsLoading(false);
+        } else {
+            // No data received
+            throw new Error("No data received");
         }
-        catch(error) {
-            console.log("Could not fetch the category list");
+    } catch (error) {
+        console.log("Could not fetch the category list:", error);
+        
+        // Implement retry logic
+        if (retryCount < 3) {
+            console.log(`Retry attempt ${retryCount + 1}/3`);
+            setRetryCount(prev => prev + 1);
+            // Wait 1 second before retrying
+            setTimeout(() => fetchSublinks(), 1000);
+        } else {
+            setIsLoading(false);
+            console.log("Failed after 3 retry attempts");
         }
     }
+}
 
-
-    // useEffect( () => {
-    //     // console.log("PRINTING TOKEN", token);
-    //     return()=>fetchSublinks();
-    // },[] )
-
-
-    useEffect(() => {
-        fetchSublinks(); // Call the function directly in the effect body
-        
-        // If you need a cleanup function, you can still have it
-    }, []);
-
+// Use a more robust useEffect
+useEffect(() => {
+    fetchSublinks();
+    
+    // Add a backup timeout to ensure categories are loaded
+    const backupTimer = setTimeout(() => {
+        if (isLoading) {
+            console.log("Backup timer triggered - retrying fetch");
+            fetchSublinks();
+        }
+    }, 3000); // 3 second backup
+    
+    return () => clearTimeout(backupTimer);
+}, []);
 
 
     const matchRoute = (route) => {
