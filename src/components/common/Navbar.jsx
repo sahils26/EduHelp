@@ -99,8 +99,6 @@ const Navbar = () => {
 //     return () => clearTimeout(backupTimer);
 // }, []);
 
-
-
 // //till here
 
     const matchRoute = (route) => {
@@ -155,7 +153,7 @@ const Navbar = () => {
                                   <p>{subLink.name}</p>
                                 </Link>
                                             ) )
-                                    ) : (<div></div>)
+                                    ) : (<div className="text-center">No Courses Found </div>)
                                 }
 
                                 </div>
